@@ -26,5 +26,47 @@
     "app": "app.js",
     "serviceWorker": "serviceWorker.js",
     "manifest": "manifest.json"
+  },
+  "930d528f-f946-40b0-aaa3-805f49bbc491": {
+    "email": "shouvik@bj",
+    "projectName": "PWA Image Creator",
+    "date": "16-10-2020",
+    "48": "logo48.png",
+    "72": "logo72.png",
+    "96": "logo96.png",
+    "144": "logo144.png",
+    "196": "logo196.png",
+    "512": "logo512.png",
+    "app": "app.js",
+    "serviceWorker": "serviceWorker.js",
+    "manifest": "manifest.json"
+  },
+  "3abfe72f-b175-4fe7-b52a-311b773accac": {
+    "email": "a@g.com",
+    "projectName": "Keanu",
+    "date": "16-10-2020",
+    "48": "logo48.png",
+    "72": "logo72.png",
+    "96": "logo96.png",
+    "144": "logo144.png",
+    "196": "logo196.png",
+    "512": "logo512.png",
+    "app": "app.js",
+    "serviceWorker": "serviceWorker.js",
+    "manifest": "manifest.json"
+  },
+  "a9d53d7f-e6ec-474d-838d-7a4c114481f9": {
+    "email": "shouvik@bj",
+    "projectName": "Ramayan",
+    "date": "18-10-2020",
+    "48": "logo48.png",
+    "72": "logo72.png",
+    "96": "logo96.png",
+    "144": "logo144.png",
+    "196": "logo196.png",
+    "512": "logo512.png",
+    "app": "app.js",
+    "serviceWorker": "serviceWorker.js",
+    "manifest": "manifest.json"
   }
 }

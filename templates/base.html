@@ -35,17 +35,69 @@
       rel="stylesheet"
     />
     <link rel="manifest" href="/manifest.json" />
+    {% if(mode == "light") %}
     <style>
       /* html,
       body {
         font-family: "Lato", sans-serif;
       } */
-      html,
+      html {
+        font-family: "Chilanka", cursive;
+      }
       body {
         font-family: "Chilanka", cursive;
       }
+      img {
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+      }
     </style>
-    {% block styles %}{% endblock styles %}
+    {% else %}
+    <style>
+      /* html,
+      body {
+        font-family: "Lato", sans-serif;
+      } */
+      html {
+        font-family: "Chilanka", cursive;
+      }
+      body {
+        font-family: "Chilanka", cursive;
+        background-image: linear-gradient(
+          to bottom right,
+          #0c0f13,
+          #0d2338,
+          #4b4957
+        );
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+      /* body {
+        background-color: black;
+      } */
+      img {
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+      }
+      .sidenav {
+        background-image: linear-gradient(
+          to bottom right,
+          #0c0f13,
+          #0d2338,
+          #4b4957,
+          #7a7983
+        );
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+    </style>
+    {% endif %} {% block styles %}{% endblock styles %}
     <script>
       $(document).ready(function () {
         M.AutoInit();
@@ -58,15 +110,32 @@
         ><i class="material-icons">menu</i></a
       >
       <div class="nav-wrapper">
-        <a href="/" class="brand-logo" style="font-size: 130%"
-          ><b>PWA Image Creator</b></a
-        >
+        <a href="/" class="brand-logo" style="font-size: 130%">
+          <!-- <img
+            src="/pwa_logo/logo48.png"
+            alt="img"
+            style="height: 16px; width: 16px; margin-left: 5px"
+          />
+          <b>PIC</b> -->
+          <b>PWA Image Creator</b>
+        </a>
         <ul class="right hide-on-med-and-down">
           <li>
             <a href="/"><b>Home</b></a>
           </li>
           <li>
-            <a href="/"><b>{{user['email']}}</b></a>
+            <a><b>{{user['email']}}</b></a>
+          </li>
+          <li>
+            {% if(mode == "light") %}
+            <a class="darkMode">
+              <i class="small material-icons">brightness_2</i>
+            </a>
+            {% else %}
+            <a class="white-text lightMode">
+              <i class="small material-icons white-text">brightness_high</i>
+            </a>
+            {% endif %}
           </li>
           <li>
             <a class="waves-effect" href="/info">
@@ -80,6 +149,7 @@
       </div>
     </nav>
 
+    {% if(mode == "light") %}
     <ul id="slide-out" class="sidenav">
       <li>
         <div class="user-view">
@@ -93,9 +163,7 @@
                 <span class="white-text name">{{ user['email'] }}</span>
               </a>
               <a>
-                <span class="white-text name"
-                  ><b>PWA Image Creator App</b></span
-                >
+                <span class="white-text name"><b>PWA Image Creator</b></span>
               </a>
             </span>
           </a>
@@ -103,23 +171,107 @@
       </li>
       <li>
         <a class="waves-effect" href="/">
-          <i class="small material-icons">home</i> <b>Home</b>
+          <i class="small material-icons">home</i>Home
         </a>
+      </li>
+      <li>
+        {% if(mode == "light") %}
+        <a class="darkMode">
+          <i class="small material-icons">brightness_2</i>Enable Dark Mode
+        </a>
+        {% else %}
+        <a class="white-text lightMode">
+          <i class="small material-icons white-text">brightness_high</i>Enable
+          Light Mode
+        </a>
+        {% endif %}
       </li>
       <li>
         <a class="waves-effect" href="/info">
-          <i class="small material-icons">info_outline</i> <b>Info</b>
+          <i class="small material-icons">info_outline</i>Info
         </a>
       </li>
-      <li><div class="divider"></div></li>
+      <!-- <li><div class="divider"></div></li> -->
       <li>
         <a class="waves-effect" href="/logout">
-          <i class="small material-icons">power_settings_new</i> <b>Logout</b>
+          <i class="small material-icons">power_settings_new</i>Logout
         </a>
       </li>
     </ul>
-    {% block content %}{% endblock content %} {% block scripts %}{% endblock
-    scripts %}
+    {% else %}
+    <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="/dps/bg.jpg" />
+          </div>
+          <a href="/"><img class="circle" src="/dps/{{user['dp']}}" /></a>
+          <a href="/">
+            <span class="white-text name">
+              <a href="/">
+                <span class="white-text name">{{ user['email'] }}</span>
+              </a>
+              <a>
+                <span class="white-text name"><b>PWA Image Creator</b></span>
+              </a>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li>
+        <a class="waves-effect white-text" href="/">
+          <i class="small material-icons white-text">home</i>Home
+        </a>
+      </li>
+      <li>
+        {% if(mode == "light") %}
+        <a class="darkMode">
+          <i class="small material-icons">brightness_2</i>Enable Dark Mode
+        </a>
+        {% else %}
+        <a class="white-text lightMode">
+          <i class="small material-icons white-text">brightness_high</i>Enable
+          Light Mode
+        </a>
+        {% endif %}
+      </li>
+      <li>
+        <a class="waves-effect white-text" href="/info">
+          <i class="small material-icons white-text">info_outline</i>Info
+        </a>
+      </li>
+      <!-- <li><div class="divider"></div></li> -->
+      <li>
+        <a class="waves-effect white-text" href="/logout">
+          <i class="small material-icons white-text">power_settings_new</i
+          >Logout
+        </a>
+      </li>
+    </ul>
+    {% endif %} {% block content %}{% endblock content %} {% block scripts %}{%
+    endblock scripts %}
+    <script>
+      $(document).ready(function () {
+        $(".darkMode").click(function () {
+          $.ajax({
+            method: "get",
+            url: "/changeMode/dark",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+        $(".lightMode").click(function () {
+          $.ajax({
+            method: "get",
+            url: "/changeMode/light",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+      });
+    </script>
     <script src="/app.js"></script>
   </body>
 </html>

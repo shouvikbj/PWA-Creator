@@ -31,6 +31,10 @@ def signup():
     password = request.form.get("password")
     filename = ""
     file = request.files.get("file")
+    for key,value in users.items():
+        if(value["email"]==email):
+            flash("Email already in use!", "info")
+            return redirect(url_for('login'))
     if(file):
         filename = file.filename
         target = f"{APP_ROOT}/static/dps"
@@ -49,6 +53,17 @@ def signup():
     json.dump(users, json_file, indent=2)
     json_file.close()
     os.makedirs(f"{APP_ROOT}/static/folders/{email}")
+    json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+    modes = json.load(json_file)
+    json_file.close()
+    default_mode = {
+        email: "light"
+    }
+    modes.update(default_mode)
+    json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+    json_file.seek(0)
+    json.dump(modes, json_file, indent=2)
+    json_file.close()
     flash("Account successfully created!", "info")
     return redirect(url_for('login'))
 
@@ -90,7 +105,13 @@ def index():
             if(value["email"]==str(email)):
                 datas.append(value)
         datas.reverse()
-        return render_template("index.html", user=user, datas=datas)
+        mode = "light"
+        json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+        modes = json.load(json_file)
+        json_file.close()
+        for key,value in modes.items():
+            mode = modes[str(email)]
+        return render_template("index.html", user=user, datas=datas, mode=mode)
     else:
         return redirect(url_for('login'))
 
@@ -232,7 +253,13 @@ def viewProject(email,project):
                 value["projectName"]==str(project)
             ):
                 datas.append(value)
-        return render_template("view.html", user=user, datas=datas)
+        mode = "light"
+        json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+        modes = json.load(json_file)
+        json_file.close()
+        for key,value in modes.items():
+            mode = modes[str(email)]
+        return render_template("view.html", user=user, datas=datas, mode=mode)
     else:
         return redirect(url_for("login"))
 
@@ -248,7 +275,49 @@ def info():
         for key,value in users.items():
             if(value["email"]==str(email)):
                 user = value
-        return render_template("info.html", user=user)
+        mode = "light"
+        json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+        modes = json.load(json_file)
+        json_file.close()
+        for key,value in modes.items():
+            mode = modes[str(email)]
+        return render_template("info.html", user=user, mode=mode)
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/changeMode/light")
+def enableLightMode():
+    if(request.cookies.get("pwauname")):
+        email = request.cookies.get("pwauname")
+        json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+        modes = json.load(json_file)
+        json_file.close()
+        for key,value in modes.items():
+            modes[email] = "light"
+        json_file = open(f"{APP_ROOT}/db/mode.json", "w")
+        json_file.seek(0)
+        json.dump(modes, json_file, indent=2)
+        json_file.close()
+        return jsonify({"msg": "Done"})
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/changeMode/dark")
+def enableDarkMode():
+    if(request.cookies.get("pwauname")):
+        email = request.cookies.get("pwauname")
+        json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+        modes = json.load(json_file)
+        json_file.close()
+        for key,value in modes.items():
+            modes[email] = "dark"
+        json_file = open(f"{APP_ROOT}/db/mode.json", "w")
+        json_file.seek(0)
+        json.dump(modes, json_file, indent=2)
+        json_file.close()
+        return jsonify({"msg": "Done"})
     else:
         return redirect(url_for("login"))
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block styles %}
+{% extends "base.html" %} {% block styles %} {% if(mode == "light") %}
 <style>
   .card-panel,
   img {
@@ -33,7 +33,57 @@
     }
   }
 </style>
-{% endblock styles %} {% block content %}
+{% else %}
+<style>
+  .card-panel {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    /* box-shadow: 0px 0px 10px -2px white; */
+    background-image: linear-gradient(
+      to bottom right,
+      #4b4957,
+      #0d2338,
+      #0c0f13
+    );
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  img {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+  }
+  .clickBtn {
+    background: black;
+    border-radius: 50%;
+    /* margin-top: -5px; */
+
+    box-shadow: 0 0 0 0 rgb(149, 148, 231);
+    transform: scale(1);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgb(72, 255, 0);
+    }
+
+    50% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 81, 255, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+</style>
+{% endif %} {% endblock styles %} {% block content %} {% if(mode == "light") %}
 <div class="container">
   <div class="">
     {% if(datas|length) %} {% for data in datas %}
@@ -289,4 +339,260 @@
     {% endif %}
   </div>
 </div>
-{% endblock content %} {% block scripts %} {% endblock scripts %}
+{% else %}
+<div class="container">
+  <div class="">
+    {% if(datas|length) %} {% for data in datas %}
+    <div class="center">
+      <h4 class="white-text">{{data["projectName"]}}</h4>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><h5>Runner JS App</h5></span>
+          <span class="white-text"><b>( customized app.js )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the bottom right corner to download the file.
+          </span>
+          <br />
+          <a
+            href="/folders/app.js"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><h5>Service Worker</h5></span>
+          <span class="white-text"><b>( customized serviceWorker.js )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the bottom right corner to download the file.
+          </span>
+          <br />
+          <a
+            href="/folders/serviceWorker.js"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"
+            ><h5>Customized<br />Manifest File</h5></span
+          >
+          <span class="white-text"><b>( customized manifest.json )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the bottom right corner to download the file.
+          </span>
+          <br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/manifest.json"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 48 x 48 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo48.png"
+            alt="img"
+          />
+          <br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo48.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 72 x 72 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo72.png"
+            alt="img"
+          />
+          <br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo72.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 96 x 96 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+            alt="img"
+          />
+          <br /><br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 144 x 144 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+            alt="img"
+          />
+          <br /><br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo144.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 196 x 196 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+            alt="img"
+          />
+          <br /><br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo196.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    <div class="row">
+      <div class="col m3"></div>
+      <div class="col m6 s12">
+        <div class="card-panel">
+          <span class="white-text"><b>( 512 x 512 )</b></span
+          ><br />
+          <span class="white-text">
+            Click the button in the<br />
+            bottom right corner <br />
+            to download the image.
+          </span>
+          <img
+            style="margin-top: -60px"
+            class="right"
+            src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+            alt="img"
+          />
+          <br /><br />
+          <a
+            href="/folders/{{data['email']}}/{{data['projectName']}}/logo512.png"
+            class="btn-floating blue right clickBtn"
+            download
+          >
+            <i class="material-icons">arrow_downward</i>
+          </a>
+        </div>
+      </div>
+      <div class="col m3"></div>
+    </div>
+    {% endfor %} {% else %}
+    <br /><br /><br /><br />
+    <h3 class="center">This project doesn't exist!</h3>
+    {% endif %}
+  </div>
+</div>
+{% endif %} {% endblock content %} {% block scripts %} {% endblock scripts %}
