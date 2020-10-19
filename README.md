@@ -19,4 +19,4 @@ Hope to add more and more features to this App in near future.
 
 Till then enjoy the current App and speed up your PWA development.
 
-                                                   ## Author - Shouvik Bajpayee
+## Author - Shouvik Bajpayee
