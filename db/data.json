@@ -1,0 +1,30 @@
+{
+  "96ae2dd5-9e78-48b2-82db-c7500b6cb35e": {
+    "email": "piku@bj",
+    "projectName": "Test Project",
+    "date": "16-10-2020",
+    "48": "logo48.png",
+    "72": "logo72.png",
+    "96": "logo96.png",
+    "144": "logo144.png",
+    "196": "logo196.png",
+    "512": "logo512.png",
+    "app": "app.js",
+    "serviceWorker": "serviceWorker.js",
+    "manifest": "manifest.json"
+  },
+  "9e0aefe4-7400-4ea3-b33e-9ef7be4feea7": {
+    "email": "piku@bj",
+    "projectName": "Second Test",
+    "date": "16-10-2020",
+    "48": "logo48.png",
+    "72": "logo72.png",
+    "96": "logo96.png",
+    "144": "logo144.png",
+    "196": "logo196.png",
+    "512": "logo512.png",
+    "app": "app.js",
+    "serviceWorker": "serviceWorker.js",
+    "manifest": "manifest.json"
+  }
+}

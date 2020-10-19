@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/pwa_logo/logo48.png" type="image/png" />
+    <title>PWA Image Creator</title>
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Compiled and minified JQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300;1,400&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <style>
+      /* html,
+      body {
+        font-family: "Lato", sans-serif;
+      } */
+      html,
+      body {
+        font-family: "Chilanka", cursive;
+      }
+    </style>
+    {% block styles %}{% endblock styles %}
+    <script>
+      $(document).ready(function () {
+        M.AutoInit();
+      });
+    </script>
+  </head>
+  <body>
+    <nav class="white-text blue">
+      <a href="#" data-target="slide-out" class="sidenav-trigger"
+        ><i class="material-icons">menu</i></a
+      >
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo" style="font-size: 130%"
+          ><b>PWA Image Creator</b></a
+        >
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a href="/"><b>Home</b></a>
+          </li>
+          <li>
+            <a href="/"><b>{{user['email']}}</b></a>
+          </li>
+          <li>
+            <a class="waves-effect" href="/info">
+              <i class="small material-icons">info_outline</i>
+            </a>
+          </li>
+          <li>
+            <a href="/logout"><b>Logout</b></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <ul id="slide-out" class="sidenav">
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="/dps/bg.jpg" />
+          </div>
+          <a href="/"><img class="circle" src="/dps/{{user['dp']}}" /></a>
+          <a href="/">
+            <span class="white-text name">
+              <a href="/">
+                <span class="white-text name">{{ user['email'] }}</span>
+              </a>
+              <a>
+                <span class="white-text name"
+                  ><b>PWA Image Creator App</b></span
+                >
+              </a>
+            </span>
+          </a>
+        </div>
+      </li>
+      <li>
+        <a class="waves-effect" href="/">
+          <i class="small material-icons">home</i> <b>Home</b>
+        </a>
+      </li>
+      <li>
+        <a class="waves-effect" href="/info">
+          <i class="small material-icons">info_outline</i> <b>Info</b>
+        </a>
+      </li>
+      <li><div class="divider"></div></li>
+      <li>
+        <a class="waves-effect" href="/logout">
+          <i class="small material-icons">power_settings_new</i> <b>Logout</b>
+        </a>
+      </li>
+    </ul>
+    {% block content %}{% endblock content %} {% block scripts %}{% endblock
+    scripts %}
+    <script src="/app.js"></script>
+  </body>
+</html>

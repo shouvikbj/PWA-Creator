@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300;1,400&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="/manifest.json" />
+    <title>User Login</title>
+    <script>
+      if (
+        location.hostname === "datarecord.pythonanywhere.com" &&
+        location.protocol !== "https:"
+      ) {
+        location.href = location.href.replace("http:", "https:");
+      }
+    </script>
+    <style>
+      html,
+      body {
+        /* font-family: "Lato", sans-serif; */
+        font-family: "Chilanka", cursive;
+      }
+      #heading-text {
+        font-weight: bold;
+        color: rgba(0, 0, 255, 0.5);
+        font-size: 200%;
+      }
+
+      #email,
+      select {
+        text-decoration: none;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        border-radius: 30px;
+        border: none;
+        text-align: center;
+        border-bottom: 2px solid rgba(112, 128, 144, 0.219);
+        height: 40px;
+        width: 95%;
+      }
+
+      #password,
+      select {
+        text-decoration: none;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        border-radius: 30px;
+        border: none;
+        text-align: center;
+        border-bottom: 2px solid rgba(112, 128, 144, 0.219);
+        height: 40px;
+        width: 95%;
+      }
+
+      #submit-btn {
+        text-decoration: none;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        border-radius: 30px;
+        border: none;
+        background-color: rgba(0, 0, 255, 0.493);
+        color: white;
+        font-weight: bold;
+        height: 40px;
+        width: 90%;
+      }
+
+      #reset-btn {
+        text-decoration: none;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        border-radius: 30px;
+        border: none;
+        background-color: rgba(255, 0, 0, 0.493);
+        color: white;
+        font-weight: bold;
+        height: 40px;
+        width: 90%;
+      }
+      #login {
+        width: 45%;
+      }
+      #signup {
+        width: 45%;
+      }
+      #image-uploader {
+        margin-left: 8%;
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $("#signup-form").hide();
+        $("#signup").click(function () {
+          $("#login-form").hide();
+          $("#signup-form").fadeIn();
+          $("#login").removeClass("active");
+          $(this).addClass("active");
+        });
+        $("#login").click(function () {
+          $("#signup-form").hide();
+          $("#login-form").fadeIn();
+          $("#signup").removeClass("active");
+          $(this).addClass("active");
+        });
+      });
+    </script>
+  </head>
+
+  <body align="center">
+    <div class="container">
+      <br /><br />
+      <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+          <span>{{ message }}</span>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4"><br /></div>
+        <div class="col-lg-4 col-md-4 col-sm-4" id="form-content">
+          <br />
+          <div>
+            <button id="login" class="btn btn-default btn-lg active">
+              login
+            </button>
+            <button id="signup" class="btn btn-default btn-lg">signup</button>
+          </div>
+          <br />
+          <div id="login-form">
+            <div id="heading">
+              <h4 id="heading-text">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </h4>
+              <br />
+            </div>
+            <br />
+            <form action="/login" method="post">
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="username"
+                required="true"
+              /><br /><br /><br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                required="true"
+              /><br /><br /><br />
+              <input type="submit" value="Login" id="submit-btn" /><br /><br />
+              <input type="reset" value="Reset" id="reset-btn" />
+            </form>
+          </div>
+          <div id="signup-form">
+            <div id="heading">
+              <h4 id="heading-text"><i class="fas fa-user-plus"></i> Signup</h4>
+              <br />
+            </div>
+            <br />
+            <form action="/signup" method="post" enctype="multipart/form-data">
+              <input
+                type="text"
+                name="email"
+                id="email"
+                placeholder="email"
+                required="true"
+              /><br /><br /><br />
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                required="true"
+              /><br /><br /><br />
+              <p><strong>Upload a DP</strong></p>
+              <br />
+              <input
+                type="file"
+                id="image-uploader"
+                name="file"
+                accept="image/*"
+                required
+              /><br /><br /><br />
+              <input type="submit" value="Signup" id="submit-btn" /><br /><br />
+              <input type="reset" value="Reset" id="reset-btn" />
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4"></div>
+      </div>
+      <br /><br />
+    </div>
+    <br />
+    <div class="container">
+      <h4 style="color: rgba(0, 0, 0, 0.63)">Developed by</h4>
+      <h4 style="color: blueviolet">
+        <a target="_blank" href="https://shouvikbajpayee.pythonanywhere.com/">
+          Shouvik Bajpayee
+        </a>
+      </h4>
+    </div>
+    <br /><br />
+    <script src="/app.js"></script>
+  </body>
+</html>

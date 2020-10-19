@@ -1,0 +1,236 @@
+{% extends "base.html" %} {% block styles %}
+<style>
+  #submitBtn {
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
+  }
+  .card {
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px -2px slategray;
+  }
+  .clickBtn {
+    background: black;
+    border-radius: 50%;
+    /* margin-top: -5px; */
+
+    box-shadow: 0 0 0 0 rgb(149, 148, 231);
+    transform: scale(1);
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(69, 77, 192, 0.596);
+    }
+
+    50% {
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+  #image_picker {
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+  }
+  #flashMessage {
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px -2px slategray;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: rgba(0, 81, 255, 0.479);
+  }
+</style>
+{% endblock styles %} {% block content %}
+<div class="container center">
+  <br />
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+
+  <div id="flashMessage">
+    <span class="white-text">{{ message }}</span>
+    <button id="close" type="button" class="waves-effect waves-teal btn-flat">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
+</div>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="modal-content center">
+    <div id="spinner" class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    <h5 class="center">Create New Project</h5>
+    <!-- form start -->
+    <div class="row">
+      <form
+        action="/upload"
+        id="uploadForm"
+        class="col s12"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="project_name" name="project_name" type="text" required />
+            <label for="project_name">New Project Name</label>
+          </div>
+        </div>
+        <h5 class="left">Upload Image</h5>
+        <br /><br /><br />
+        <input
+          class="left"
+          type="file"
+          name="project_image"
+          id="project_image"
+          required
+        />
+        <br /><br /><br />
+        <button
+          id="submitBtn"
+          type="submit"
+          class="waves-effect waves-light btn blue right"
+        >
+          <i class="large material-icons">check</i>
+        </button>
+      </form>
+    </div>
+    <!-- form end -->
+  </div>
+</div>
+<div class="">
+  <div class="row">
+    <div class="col m4"></div>
+    <div class="col s12 m4">
+      {% if(datas|length) %} {% for data in datas %}
+      <div class="card white lighten-2">
+        <div class="card-content black-text">
+          <span class="card-title"><b>{{data["projectName"]}}</b></span>
+          <h6>({{data["date"]}})</h6>
+          <br />
+          <div class="row">
+            <div class="col">
+              <img
+                src="/folders/{{data['email']}}/{{data['projectName']}}/logo72.png"
+                alt=""
+              />
+              <br />
+              (72x72)
+            </div>
+            <div class="col">
+              <img
+                src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
+                alt=""
+              />
+              <br />
+              (96x96)
+            </div>
+            <div class="col">
+              <h5>more...</h5>
+            </div>
+          </div>
+          <p>
+            This project contains sizes (48x48), (72x72), (96x96), (144x144),
+            (196x196) and (512x512) of the above sample image(s). <br />The
+            provided image(s) are of standard sizes that are required for PWAs.
+          </p>
+          <br />
+          <a
+            href="/project/{{data['email']}}/{{data['projectName']}}"
+            class="right"
+          >
+            <button
+              class="waves-effect waves-light btn-floating deep-orange darken-1 right clickBtn"
+            >
+              <i class="white-text material-icons">chevron_right</i>
+            </button>
+          </a>
+        </div>
+      </div>
+      <br />
+      {% endfor %} {% else %}
+      <h4 class="center" style="margin-top: 50%">No Projects Yet!</h4>
+      {% endif %}
+    </div>
+    <div class="col m4"></div>
+  </div>
+</div>
+<br /><br /><br /><br />
+<button
+  class="btn-floating btn-large blue modal-trigger fixed-action-btn"
+  data-target="modal1"
+>
+  <i class="large material-icons">add</i>
+</button>
+{% endblock content %} {% block scripts %}
+<script>
+  $(document).ready(function () {
+    $("#spinner").hide();
+    $("form#uploadForm").submit(function (e) {
+      $("#spinner").show();
+    });
+    $("#close").click(() => {
+      $("#flashMessage").hide();
+    });
+  });
+</script>
+{% endblock scripts %}
