@@ -1,6 +1,7 @@
 {
   "shouvik@bj": "dark",
-  "piku@bj": "light",
+  "piku@bj": "dark",
   "a@g.c": "light",
-  "a@g.com": "light"
+  "a@g.com": "dark",
+  "a@b.c": "light"
 }

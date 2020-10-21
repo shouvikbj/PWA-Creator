@@ -121,10 +121,10 @@
         </a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <a href="/"><b>Home</b></a>
+            <a class="yellow-text"><b>{{user['email']}}</b></a>
           </li>
           <li>
-            <a><b>{{user['email']}}</b></a>
+            <a href="/"><b>Home</b></a>
           </li>
           <li>
             {% if(mode == "light") %}
@@ -132,8 +132,19 @@
               <i class="small material-icons">brightness_2</i>
             </a>
             {% else %}
-            <a class="white-text lightMode">
-              <i class="small material-icons white-text">brightness_high</i>
+            <a class="lightMode">
+              <i class="small material-icons">wb_sunny</i>
+            </a>
+            {% endif %}
+          </li>
+          <li>
+            {% if(view == "normal") %}
+            <a class="carouselView">
+              <i class="small material-icons">view_carousel</i>
+            </a>
+            {% else %}
+            <a class="normalView">
+              <i class="small material-icons">format_list_bulleted</i>
             </a>
             {% endif %}
           </li>
@@ -181,8 +192,20 @@
         </a>
         {% else %}
         <a class="white-text lightMode">
-          <i class="small material-icons white-text">brightness_high</i>Enable
-          Light Mode
+          <i class="small material-icons white-text">wb_sunny</i>Enable Light
+          Mode
+        </a>
+        {% endif %}
+      </li>
+      <li>
+        {% if(view == "normal") %}
+        <a class="carouselView">
+          <i class="small material-icons">view_carousel</i> Enable Carousel
+        </a>
+        {% else %}
+        <a class="normalView">
+          <i class="small material-icons">format_list_bulleted</i> Disable
+          Carousel
         </a>
         {% endif %}
       </li>
@@ -230,8 +253,21 @@
         </a>
         {% else %}
         <a class="white-text lightMode">
-          <i class="small material-icons white-text">brightness_high</i>Enable
-          Light Mode
+          <i class="small material-icons white-text">wb_sunny</i>Enable Light
+          Mode
+        </a>
+        {% endif %}
+      </li>
+      <li>
+        {% if(view == "normal") %}
+        <a class="white-text carouselView">
+          <i class="small material-icons white-text">view_carousel</i> Enable
+          Carousel
+        </a>
+        {% else %}
+        <a class="white-text normalView">
+          <i class="small material-icons white-text">format_list_bulleted</i>
+          Disable Carousel
         </a>
         {% endif %}
       </li>
@@ -252,6 +288,7 @@
     endblock scripts %}
     <script>
       $(document).ready(function () {
+        // light-dark mode cnvertion
         $(".darkMode").click(function () {
           $.ajax({
             method: "get",
@@ -265,6 +302,25 @@
           $.ajax({
             method: "get",
             url: "/changeMode/light",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+        // normal-carousel view conversion
+        $(".carouselView").click(function () {
+          $.ajax({
+            method: "get",
+            url: "/changeView/carousel",
+            success: function () {
+              location.reload();
+            },
+          });
+        });
+        $(".normalView").click(function () {
+          $.ajax({
+            method: "get",
+            url: "/changeView/normal",
             success: function () {
               location.reload();
             },

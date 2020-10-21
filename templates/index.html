@@ -235,6 +235,7 @@
     <!-- form end -->
   </div>
 </div>
+{% if(view == "normal") %}
 <div class="">
   <div class="row">
     <div class="col m4"></div>
@@ -292,6 +293,23 @@
     <div class="col m4"></div>
   </div>
 </div>
+{% else %} {% if(datas|length) %}
+<h4 class="center" style="margin-bottom: -30px">Your Projects!</h4>
+<div class="carousel">
+  {% for data in datas %}
+  <a
+    class="carousel-item black-text center"
+    href="/project/{{data['email']}}/{{data['projectName']}}"
+  >
+    <img src="/folders/{{data['email']}}/{{data['projectName']}}/logo196.png" />
+    {{data["projectName"]}}
+  </a>
+  {% endfor %}
+</div>
+<p class="center">Swipe through the images to view your projects!</p>
+{% else %}
+<h4 class="center" style="margin-top: 50%">No Projects Yet!</h4>
+{% endif %} {% endif %}
 <br /><br /><br /><br />
 <button
   class="btn-floating btn-large blue modal-trigger fixed-action-btn"
@@ -399,20 +417,19 @@
     <!-- form end -->
   </div>
 </div>
+{% if(view == "normal") %}
 <div class="">
   <div class="row">
     <div class="col m4"></div>
     <div class="col s12 m4">
       {% if(datas|length) %} {% for data in datas %}
       <div class="card white lighten-2">
-        <div class="card-content black-text">
-          <span class="card-title white-text"
-            ><b>{{data["projectName"]}}</b></span
-          >
-          <h6 class="white-text">({{data["date"]}})</h6>
+        <div class="card-content white-text">
+          <span class="card-title"><b>{{data["projectName"]}}</b></span>
+          <h6>({{data["date"]}})</h6>
           <br />
           <div class="row">
-            <div class="col white-text">
+            <div class="col">
               <img
                 src="/folders/{{data['email']}}/{{data['projectName']}}/logo72.png"
                 alt=""
@@ -420,7 +437,7 @@
               <br />
               (72x72)
             </div>
-            <div class="col white-text">
+            <div class="col">
               <img
                 src="/folders/{{data['email']}}/{{data['projectName']}}/logo96.png"
                 alt=""
@@ -429,10 +446,10 @@
               (96x96)
             </div>
             <div class="col">
-              <h5 class="white-text">more...</h5>
+              <h5>more...</h5>
             </div>
           </div>
-          <p class="white-text">
+          <p>
             This project contains sizes (48x48), (72x72), (96x96), (144x144),
             (196x196) and (512x512) of the above sample image(s). <br />The
             provided image(s) are of standard sizes that are required for PWAs.
@@ -458,6 +475,23 @@
     <div class="col m4"></div>
   </div>
 </div>
+{% else %} {% if(datas|length) %}
+<h4 class="center white-text" style="margin-bottom: -30px">Your Projects!</h4>
+<div class="carousel">
+  {% for data in datas %}
+  <a
+    class="carousel-item white-text center"
+    href="/project/{{data['email']}}/{{data['projectName']}}"
+  >
+    <img src="/folders/{{data['email']}}/{{data['projectName']}}/logo196.png" />
+    {{data["projectName"]}}
+  </a>
+  {% endfor %}
+</div>
+<p class="center white-text">Swipe through the images to view your projects!</p>
+{% else %}
+<h4 class="center" style="margin-top: 50%">No Projects Yet!</h4>
+{% endif %} {% endif %}
 <br /><br /><br /><br />
 <button
   class="btn-floating btn-large blue modal-trigger fixed-action-btn"

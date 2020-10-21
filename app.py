@@ -53,6 +53,7 @@ def signup():
     json.dump(users, json_file, indent=2)
     json_file.close()
     os.makedirs(f"{APP_ROOT}/static/folders/{email}")
+    # setting default light view
     json_file = open(f"{APP_ROOT}/db/mode.json", "r")
     modes = json.load(json_file)
     json_file.close()
@@ -60,9 +61,21 @@ def signup():
         email: "light"
     }
     modes.update(default_mode)
-    json_file = open(f"{APP_ROOT}/db/mode.json", "r")
+    json_file = open(f"{APP_ROOT}/db/mode.json", "w")
     json_file.seek(0)
     json.dump(modes, json_file, indent=2)
+    json_file.close()
+    # setting default viewing mode
+    json_file = open(f"{APP_ROOT}/db/view.json", "r")
+    views = json.load(json_file)
+    json_file.close()
+    default_view = {
+        email: "normal"
+    }
+    views.update(default_view)
+    json_file = open(f"{APP_ROOT}/db/view.json", "w")
+    json_file.seek(0)
+    json.dump(views, json_file, indent=2)
     json_file.close()
     flash("Account successfully created!", "info")
     return redirect(url_for('login'))
@@ -111,7 +124,13 @@ def index():
         json_file.close()
         for key,value in modes.items():
             mode = modes[str(email)]
-        return render_template("index.html", user=user, datas=datas, mode=mode)
+        view = "normal"
+        json_file = open(f"{APP_ROOT}/db/view.json", "r")
+        views = json.load(json_file)
+        json_file.close()
+        for key,value in views.items():
+            view = views[str(email)]
+        return render_template("index.html",user=user,datas=datas,mode=mode,view=view)
     else:
         return redirect(url_for('login'))
 
@@ -259,7 +278,13 @@ def viewProject(email,project):
         json_file.close()
         for key,value in modes.items():
             mode = modes[str(email)]
-        return render_template("view.html", user=user, datas=datas, mode=mode)
+        view = "normal"
+        json_file = open(f"{APP_ROOT}/db/view.json", "r")
+        views = json.load(json_file)
+        json_file.close()
+        for key,value in views.items():
+            view = views[str(email)]
+        return render_template("view.html", user=user, datas=datas, mode=mode, view=view)
     else:
         return redirect(url_for("login"))
 
@@ -281,7 +306,13 @@ def info():
         json_file.close()
         for key,value in modes.items():
             mode = modes[str(email)]
-        return render_template("info.html", user=user, mode=mode)
+        view = "normal"
+        json_file = open(f"{APP_ROOT}/db/view.json", "r")
+        views = json.load(json_file)
+        json_file.close()
+        for key,value in views.items():
+            view = views[str(email)]
+        return render_template("info.html", user=user, mode=mode, view=view)
     else:
         return redirect(url_for("login"))
 
@@ -316,6 +347,42 @@ def enableDarkMode():
         json_file = open(f"{APP_ROOT}/db/mode.json", "w")
         json_file.seek(0)
         json.dump(modes, json_file, indent=2)
+        json_file.close()
+        return jsonify({"msg": "Done"})
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/changeView/normal")
+def enableNormalView():
+    if(request.cookies.get("pwauname")):
+        email = request.cookies.get("pwauname")
+        json_file = open(f"{APP_ROOT}/db/view.json", "r")
+        views = json.load(json_file)
+        json_file.close()
+        for key,value in views.items():
+            views[email] = "normal"
+        json_file = open(f"{APP_ROOT}/db/view.json", "w")
+        json_file.seek(0)
+        json.dump(views, json_file, indent=2)
+        json_file.close()
+        return jsonify({"msg": "Done"})
+    else:
+        return redirect(url_for("login"))
+
+
+@app.route("/changeView/carousel")
+def enableCarouselView():
+    if(request.cookies.get("pwauname")):
+        email = request.cookies.get("pwauname")
+        json_file = open(f"{APP_ROOT}/db/view.json", "r")
+        views = json.load(json_file)
+        json_file.close()
+        for key,value in views.items():
+            views[email] = "carousel"
+        json_file = open(f"{APP_ROOT}/db/view.json", "w")
+        json_file.seek(0)
+        json.dump(views, json_file, indent=2)
         json_file.close()
         return jsonify({"msg": "Done"})
     else:
