@@ -1,4 +1,4 @@
-# PWA Image Creator App
+# PWA Creator App
 
 As a full-stack PWA developer, I always felt that creating icons of
 various sizes (suitable for the manifest.json file) properly was a hecktic
